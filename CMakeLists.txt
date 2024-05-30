@@ -17,7 +17,7 @@ if(GIT_FOUND)
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 else()
-    set(GIT_TAG_VERSION "1.0.0")
+    set(GIT_TAG_VERSION "v1.0.0")
 endif()
 
 project(MockingBird
