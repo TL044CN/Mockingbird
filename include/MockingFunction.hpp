@@ -70,7 +70,7 @@ public:
      * @brief real is a helper function that returns the real function
      * @return std::function<Ret(Args...)> The real function
      */
-    std::function<Ret(Args...)> real() {
+    std::function<Ret(Args...)> real() const {
         return mRealFunc;
     }
 
@@ -78,7 +78,7 @@ public:
      * @brief mock is a helper function that returns the mock function
      * @return std::function<Ret(Args...)> The mock function
      */
-    std::function<Ret(Args...)> mock() {
+    std::function<Ret(Args...)> mock() const {
         return mMockFunc;
     }
 };

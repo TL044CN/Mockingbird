@@ -27,7 +27,7 @@ namespace MockingBird {
          * @param type The type of the system call to mock
          * @param state The state of the mocking
          */
-        MockingGuard(const std::string& type, bool state = true);
+        explicit MockingGuard(const std::string& type, bool state = true);
 
         /**
          * @brief ~MockingGuard is the destructor of the MockingGuard class
