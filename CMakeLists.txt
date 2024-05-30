@@ -26,6 +26,8 @@ project(MockingBird
     LANGUAGES CXX
 )
 
+message("Building ${PROJECT_NAME} version ${PROJECT_VERSION}")
+
 find_program(LCOV lcov)
 find_program(GENHTML genhtml)
 
@@ -50,9 +52,21 @@ if(NOT ${PROJECT_NAME}_IS_SUBMODULE)
     endif()
 endif()
 
-add_library(${PROJECT_NAME}
-    source/MockingController.cpp
-    source/MockingGuard.cpp
+if(NOT ${PROJECT_NAME}_BUILD_SHARED)
+    add_library(${PROJECT_NAME} STATIC
+        source/MockingController.cpp
+        source/MockingGuard.cpp
+    )
+else()
+    add_library(${PROJECT_NAME} SHARED
+        source/MockingController.cpp
+        source/MockingGuard.cpp
+    )
+endif()
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    SOVERSION ${PROJECT_VERSION_MAJOR}
 )
 
 target_include_directories(${PROJECT_NAME}
