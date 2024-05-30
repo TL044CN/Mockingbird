@@ -10,5 +10,11 @@
  */
 
 #pragma once
+
 #include "MockingController.hpp"
 #include "MockingFunction.hpp"
+
+/**
+ * @brief Main namespace for the MockingBird library 
+ */
+namespace MockingBird {}

@@ -1,7 +1,7 @@
 /**
- * @file MockGuard.hpp
+ * @file MockingGuard.hpp
  * @author TL044CN (tl044cn@shodan.fyi)
- * @brief MockGuard class is a helper class that resets a boolean flag to its initial value when it goes out of scope
+ * @brief MockingGuard class is a helper class that resets a boolean flag to its initial value when it goes out of scope
  * @version 0.1
  * @date 2024-05-30
  * 

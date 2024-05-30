@@ -24,10 +24,11 @@ namespace MockingBird {
  */
 class MockingController : public Singleton<MockingController> {
     friend class Singleton<MockingController>;
-private:
+public:
     template<typename Ret, typename... Args>
     class MockingFunction;
 
+private:
     class MockingGuard;
 
     std::unordered_map<std::string, bool> mMockingState;
