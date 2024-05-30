@@ -13,13 +13,13 @@ if(GIT_FOUND)
     execute_process(
         COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        OUTPUT_VARIABLE ${PROJECT_NAME}_VERSION
+        OUTPUT_VARIABLE GIT_TAG_VERSION
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 endif()
 
 project(MockingBird
-    VERSION ${${PROJECT_NAME}_VERSION}
+    VERSION ${GIT_TAG_VERSION}
     DESCRIPTION "A System call mocking Library for C++"
     LANGUAGES CXX
 )
