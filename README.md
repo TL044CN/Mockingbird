@@ -1,6 +1,9 @@
 # Mocking Bird
 
 <a href='https://jenkins.shodan.fyi/job/MockingBird/'><img src='https://jenkins.shodan.fyi/buildStatus/icon?job=MockingBird'></a>
+[![Coverage](https://sonarqube.shodan.fyi/api/project_badges/measure?project=TL044CN_Mockingbird_755fb003-552a-42f2-84ab-937b11b0a8e5&metric=coverage&token=sqb_02a14556b1f737aac708a3ae7f4860f74d90ca91)](https://sonarqube.shodan.fyi/dashboard?id=TL044CN_Mockingbird_755fb003-552a-42f2-84ab-937b11b0a8e5)
+[![Lines of Code](https://sonarqube.shodan.fyi/api/project_badges/measure?project=TL044CN_Mockingbird_755fb003-552a-42f2-84ab-937b11b0a8e5&metric=ncloc&token=sqb_02a14556b1f737aac708a3ae7f4860f74d90ca91)](https://sonarqube.shodan.fyi/dashboard?id=TL044CN_Mockingbird_755fb003-552a-42f2-84ab-937b11b0a8e5)
+[![Quality Gate Status](https://sonarqube.shodan.fyi/api/project_badges/measure?project=TL044CN_Mockingbird_755fb003-552a-42f2-84ab-937b11b0a8e5&metric=alert_status&token=sqb_02a14556b1f737aac708a3ae7f4860f74d90ca91)](https://sonarqube.shodan.fyi/dashboard?id=TL044CN_Mockingbird_755fb003-552a-42f2-84ab-937b11b0a8e5)
 
 ## Mocking a Syscall
 
