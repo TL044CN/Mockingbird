@@ -17,7 +17,7 @@ if(GIT_FOUND)
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 else()
-    set(GIT_TAG_VERSION "v1.0.0")
+    set(GIT_TAG_VERSION "1.0.0")
 endif()
 
 project(MockingBird
@@ -52,13 +52,13 @@ if(NOT IS_SUBMODULE)
     endif()
 endif()
 
-if(NOT ${PROJECT_NAME}_BUILD_SHARED)
-    add_library(${PROJECT_NAME} STATIC
+if(${PROJECT_NAME}_BUILD_SHARED)
+    add_library(${PROJECT_NAME} SHARED
         source/MockingController.cpp
         source/MockingGuard.cpp
     )
 else()
-    add_library(${PROJECT_NAME} SHARED
+    add_library(${PROJECT_NAME} STATIC
         source/MockingController.cpp
         source/MockingGuard.cpp
     )
@@ -116,5 +116,5 @@ endif()
 set(${PROJECT_NAME}_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # tests:
-#enable_testing()
-#add_subdirectory(tests)
+enable_testing()
+add_subdirectory(tests)
