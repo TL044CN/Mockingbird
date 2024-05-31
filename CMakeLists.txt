@@ -38,7 +38,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     find_program(GCOV llvm-cov)
 endif()
 
-if(NOT ${PROJECT_NAME}_IS_SUBMODULE)
+if(NOT IS_SUBMODULE)
     find_package(Doxygen)
     if(DOXYGEN_FOUND)
         add_custom_target(documentation
