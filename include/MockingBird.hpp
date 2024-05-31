@@ -13,6 +13,7 @@
 
 #include "MockingController.hpp"
 #include "MockingFunction.hpp"
+#include "MockingGuard.hpp"
 
 /**
  * @brief Main namespace for the MockingBird library 
