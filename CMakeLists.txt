@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_STANDARD 20)
 set(CXX_STANDARD_REQUIRED ON)
 
-if(NOT PROJECT_NAME)
-    set(IS_SUBMODULE OFF)
-else()
+if(DEFINED PROJECT_NAME AND NOT "${PROJECT_NAME}" STREQUAL "")
     set(IS_SUBMODULE ON)
+else()
+    set(IS_SUBMODULE OFF)
 endif()
 
 find_package(Git)
@@ -25,8 +25,11 @@ project(MockingBird
     DESCRIPTION "A System call mocking Library for C++"
     LANGUAGES CXX
 )
-
-message("Building ${PROJECT_NAME} version ${PROJECT_VERSION}")
+if(IS_SUBMODULE)
+    message("Building ${PROJECT_NAME} version ${PROJECT_VERSION} as Submodule")
+else()
+    message("Building ${PROJECT_NAME} version ${PROJECT_VERSION}")
+endif()
 
 find_program(LCOV lcov)
 find_program(GENHTML genhtml)
@@ -52,16 +55,15 @@ if(NOT IS_SUBMODULE)
     endif()
 endif()
 
+set(${PROJECT_NAME}_SOURCES
+    source/MockingController.cpp
+    source/MockingGuard.cpp
+)
+
 if(${PROJECT_NAME}_BUILD_SHARED)
-    add_library(${PROJECT_NAME} SHARED
-        source/MockingController.cpp
-        source/MockingGuard.cpp
-    )
+    add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_SOURCES})
 else()
-    add_library(${PROJECT_NAME} STATIC
-        source/MockingController.cpp
-        source/MockingGuard.cpp
-    )
+    add_library(${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SOURCES})
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -115,6 +117,8 @@ endif()
 
 set(${PROJECT_NAME}_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+if(NOT IS_SUBMODULE)
 # tests:
-enable_testing()
-add_subdirectory(tests)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
