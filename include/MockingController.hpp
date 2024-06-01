@@ -55,6 +55,14 @@ public:
     static auto getMockState(const std::string& name) -> bool&;
 
     /**
+     * @brief setMockState is a helper function that sets the mocking state
+     *        of a system call
+     * @param name The name of the system call
+     * @param state The mocking state of the system call
+     */
+    static auto setMockState(const std::string& name, bool state = true) -> void;
+
+    /**
      * @brief createMockGuard is a helper function that creates a MockGuard
      *        The MockGuard object resets the mocking state to its initial
      *        value when it goes out of scope

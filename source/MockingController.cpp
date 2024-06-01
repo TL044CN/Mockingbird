@@ -9,9 +9,13 @@ auto MockingController::getInstance() -> MockingController& {
 
 auto MockingController::getMockState(const std::string& name) -> bool& {
     auto& instance = getInstance();
-    if( instance.mMockingState.contains(name) )
+    if( !instance.mMockingState.contains(name) )
         return instance.mMockingState[name] = false;
     return instance.mMockingState[name];
+}
+
+auto MockingController::setMockState(const std::string& name, bool state) -> void {
+    getMockState(name) = state;
 }
 
 auto MockingController::createMockGuard(const std::string& type, bool state) -> MockingGuard {

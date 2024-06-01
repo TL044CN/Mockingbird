@@ -15,7 +15,9 @@ endif()
 
 # Add tests
 add_executable(${PROJECT_NAME}_tests
-  test_main.cpp  
+  test_main.cpp
+  test_MockingController.cpp
+  test_MockingFunction.cpp
 )
 
 # Link required libraries
