@@ -37,6 +37,16 @@ target_link_libraries(${PROJECT_NAME}_tests
 # this is an example for including it in a testing setup
 ```
 
+## The Mocking Function
+
+The Mocking Function is a template, that can select between calling 2 different functions based on the State of the Mocking Controller.
+The template arguments have to match the functions that are passed to the MockingFunction class.
+
+### `MockingFunction<Ret, Args...>`
+- Ret     : This is the return value of the function to mock.
+- Args... : These are all the Arguments that the function takes in.
+
+
 ## Mocking a Syscall
 
 To mock a syscall, you have to create a MockingFunction instance for the given syscall.
@@ -52,11 +62,29 @@ using MockFunc = MockingBird::MockingController::MockingFunction<Args...>;
 // first create a shadow of the original socket function
 int socket(int domain, int type, int protocol) {
     // the arguments for the MockingFunction template are <return type, argument types...>
-    static MockFunc<int, int, int, int> mock_socket("socket", ::socket);
+    static MockFunc<int, int, int, int> mock_socket("socket", MockFunc<int, int, int, int>::fromSysycall("socekt"));
     // then return the static mocking function class. (the () operator is overloaded for calling the function)
     return mock_socket(domain, type, protocol);
 }
 ```
+
+## Mocking a Function, that is not a syscall
+
+```c++
+#include "MockingFunction.hpp"
+// convenience alias
+template<typename... Args>
+using MockFunc = MockingBird::MockingController::MockingFunction<Args...>
+
+// create a Mocking Function for switching between 2 functions
+MockFunc<int, int>("MockFunc1",
+	[](int x) -> int { return x; },
+	[](int x) -> int { return x*2; }
+);
+```
+
+The Mockingfunction is now available to the Mocking Controller as "MockFunc1"
+
 
 ## Selecting when to call the MockFunction instead of the real one
 
