@@ -37,23 +37,31 @@ public:
      * @param realFunc The real function
      * @param mockFunc The mock function
      */
-    MockingFunction(const std::string& name, Ret(*realFunc)(Args... args), Ret(*mockFunc)(Args...))
-        : mName(name), mMockFunc(mockFunc) {
-        mRealFunc = reinterpret_cast<Ret(*)(Args...)>(dlsym(RTLD_NEXT, name.c_str()));
-        if ( !mRealFunc ) throw std::runtime_error("Failed to load real function");
-    }
+    MockingFunction(const std::string& name, std::function<Ret(Args...)> realFunc, std::function<Ret(Args...)> mockFunc)
+        : mName(name), mRealFunc(realFunc), mMockFunc(mockFunc) {}
 
-    /**
+    /** 
      * @brief MockingFunction is the constructor of the MockingFunction class
      * @param name The name of the function
      * @param realFunc The real function
      * @param mockFunc The mock function
      */
-    MockingFunction(const std::string& name, Ret(*realFunc)(Args... args))
-        : MockingFunction(name, realFunc, [](Args... args) -> Ret {
+    MockingFunction(const std::string& name, std::function<Ret(Args...)> realFunc)
+        : MockingFunction(name, realFunc, [](Args...) -> Ret {
         errno = EOPNOTSUPP;
         return -1;
         }) {}
+
+    /** 
+     * @brief fromSyscall is a helper function that copies the real function from a syscall
+     * @param name The name of the syscall
+     * @return std::function<Ret(Args...)> The function
+     */
+    static auto fromSyscall(const std::string& name) -> std::function <Ret(Args...)> {
+        auto func = reinterpret_cast<Ret(*)(Args...)>(dlsym(RTLD_NEXT, name.c_str()));
+        if(!func) throw std::runtime_error("Failed to load real function");
+        return func;
+    }
 
     /**
      * @brief operator() is the function call operator of the MockingFunction class
@@ -70,7 +78,7 @@ public:
      * @brief real is a helper function that returns the real function
      * @return std::function<Ret(Args...)> The real function
      */
-    std::function<Ret(Args...)> real() {
+    std::function<Ret(Args...)> real() const {
         return mRealFunc;
     }
 
@@ -78,7 +86,7 @@ public:
      * @brief mock is a helper function that returns the mock function
      * @return std::function<Ret(Args...)> The mock function
      */
-    std::function<Ret(Args...)> mock() {
+    std::function<Ret(Args...)> mock() const {
         return mMockFunc;
     }
 };
